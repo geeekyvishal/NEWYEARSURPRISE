@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Year Surprise</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: "Arial", sans-serif;
+    }
+
+    #container {
+      text-align: center;
+    }
+
+    #nameInput {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+
+    #wordNumberInput {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    #videoContainer {
+      display: none;
+      margin-top: 20px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    #vishal {
+      border-radius: 400px;
+      size-adjust: 10;
+    }
+  </style>
+
+  <style>
+    #game-container {
+      text-align: center;
+    }
+
+    #circle {
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #counter {
+      margin-top: 10px;
+    }
+
+
+    #result {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+
+    #play-button {
+      display: none;
+      background-color: #2ecc71;
+      color: #fff;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      align-items: center;
+    }
+  </style>
+
+  <style>
+    #submitBtn {
+      background-color: orange;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <h1>New Year Surpise</h1>
+    <h1>🎆🎇🎊🎉🎆</h1>
+    <br /><br /><br />
+    <h2>Follow these 3 steps to get your New Year surprise</h2>
+
+    <div id="game-container">
+      <h3>Step 1: Enter your Name</h3>
+      <input type="text" id="nameInput" placeholder="Your Name" />
+      <br /><br />
+      <h3>Step 2: Enter any word or number</h3>
+      <h3>(Eg. Vishal, Rajdeep, 9, 1729, etc)</h3>
+      <input type="text" id="wordNumberInput" placeholder="Enter a word or number" />
+      <button id="submitBtn">Submit</button>
+
+      <br /><br /><br />
+      <h3>Step 3: Click this circle 7 times</h3>
+      <div id="circle"></div>
+      <div id="counter">Clicks left: <span id="clicks-left">7</span></div>
+      <div id="result"></div>
+      <center>
+        <button id="play-button">Click for Your Surprise</button>
+      </center>
+      <br /><br /><br /><br />
+    </div>
+
+    <div id="videoContainer">
+      <video id="myVideo" controls loop>
+        <source src="doni.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <h2>Created by geekyvishal</h2>
+    <a href="https://github.com/geeekyvishal" target="_blank">
+      <img src="vishal.png" alt="" id="vishal" height="100" />
+    </a>
+    <h6>Click below to buy me a coffee</h6>
+    <a href="https://ibb.co/BPzCvrM"><img src="https://i.ibb.co/g7jRQPK/picture.jpg" alt="picture" border="0" height="100"></a>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const nameInput = document.getElementById("nameInput");
+      const wordNumberInput = document.getElementById("wordNumberInput");
+      const circle = document.getElementById("circle");
+      const counter = document.getElementById("counter");
+      const clicksLeft = document.getElementById("clicks-left");
+      const result = document.getElementById("result");
+      const playButton = document.getElementById("play-button");
+      const surpriseVideo = document.getElementById("myVideo"); 
+
+      let clicks = 7;
+
+      circle.addEventListener("click", function () {
+        if (clicks > 0) {
+          clicks--;
+          clicksLeft.textContent = clicks;
+          circle.style.backgroundColor = getRandomColor();
+          circle.style.width = `${parseInt(circle.style.width) + 10}px`;
+          circle.style.height = `${parseInt(circle.style.height) + 10}px`;
+        }
+
+        if (clicks === 0) {
+          const enteredName = nameInput.value;
+          const enteredValue = parseFloat(wordNumberInput.value);
+
+          result.textContent = `${enteredName} is a Thala for a reason`;
+          result.style.display = "block";
+          playButton.style.display = "block";
+        //   result.textContent='${nameInput}';
+
+          if (!isNaN(enteredValue)) {
+            const x = Math.abs(enteredValue - 7);
+            if (enteredValue === 7) {
+              result.textContent = `${enteredName} 7 is Thala for a Reason`;
+            } else if (enteredValue < 7) {
+              result.textContent = `${enteredName} is Thala for a reason as ${enteredValue} + ${x} = 7`;
+            } else {
+              result.textContent = `${enteredName} is Thala for a reason as ${enteredValue} - ${x} = 7`;
+            }
+          }
+        }
+      });
+
+      playButton.addEventListener("click", function () {
+        alert("Oh! YOU ARE A THALA FAN");
+        surpriseVideo.style.display = "block";
+        surpriseVideo.play();
+      });
+
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+    });
+  </script>
+</body>
+</html>
